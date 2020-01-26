@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 namespace q1
 {
     public abstract class  Band
+
     {
         // props
         public string BandName { get; set; }
 
         public int YearFormed { get; set; }
+
+        public string Membersofband { get; set; }
 
         public List<Genre> Genres { get; set; }
 
@@ -21,12 +24,17 @@ namespace q1
 
         }
 
-        public  Band(string BName, int YFormed)
+        public  Band(string BName, int YFormed, string Mband)
         {
             BandName = BName;
             YearFormed = YFormed;
+            Membersofband = Mband;
         }
 
+        public override string ToString()
+        {
+            return (this.BandName + YearFormed + Membersofband);
+        }
         public class Rock : Band
         {
             public override string ToString()
@@ -55,11 +63,6 @@ namespace q1
         {
             public string GenreName { get; set; }
             
-        }
-
-        public override string ToString()
-        {
-            return $"{BandName}";
         }
     }
 }

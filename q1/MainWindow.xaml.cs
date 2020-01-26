@@ -20,38 +20,139 @@ namespace q1
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Band> musicBands = new List<Band>();
+        List<Band> filteredMusicBands = new List<Band>();
+
         public MainWindow()
         {
             InitializeComponent();
-        }
+        }     
+
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Band b1 = new Band("jdskjfns", 1970);
-            Band b2 = new Rock("asdf", 1999);
-            Band b3 = new Band("help", 2000);
-            Band b4 = new Band("me", 2002);
-            Band b5 = new Band("the killers", 2005);
-            Band b6 = new Band("coldplay", 2002);
+            Rock band1 = new Rock()
+            {
+                BandName = "AC/DC",
+                yearofFormation = 1973,
+                membersofBand = " Angus Young, Brian Johnson, Bon Scott"
+            };
 
-            List<Band> allbands = new List<Band>();
-            allbands.Add(b1);
-            allbands.Add(b2);
-            allbands.Add(b3);
-            allbands.Add(b4);
-            allbands.Add(b5);
-            allbands.Add(b6);
+            Pop band2 = new Pop()
+            {
+                BandName = "Fall out boy",
+                yearofFormation = 2001,
+                membersofBand = "Patrick Stump, bassist Pete Wentz,Joe Trohman, Andy Hurley"
+            };
 
-            Lbox.ItemsSource = allbands.OrderBy(b => b.BandName);
+            Indie band3 = new Indie()
+            {
+                BandName = "Sabaton",
+                yearofFormation = 2000,
+                membersofBand = "Johan Hegg, Par Sundstrom, Chris Rorland, Hannes dan Vahl, Tommy Johansson"
+            };
 
-            //setting contents of ComboBox
-            cbxGenre.ItemsSource = new string[] { "All", "Rock", "Indie", "Pop" };
-            
+            Rock band4 = new Rock()
+            {
+                BandName = "Queen",
+                yearofFormation = 1970,
+                membersofBand = "Freddie Mercury, Brian May, John Deacon, and Roger Taylor"
+            };
+
+            Indie band5 = new Indie()
+            {
+                BandName = "Powerwolf",
+                yearofFormation = 2003,
+                membersofBand = "	Matthew Greywolf, Charles Greywolf, Falk Maria Schlegel, Attila Dorn, Roel van Helden"
+            };
+
+            Pop band6 = new Pop()
+            {
+                BandName = "Maroon 5",
+                yearofFormation = 2001,
+                membersofBand = " Adam Levine, James Valentine, PJ Morton, Mickey Madden, Jesse Carmichael, Matt Flynn, Sam Farrar, Ryan Dusick"
+            };
+
+            musicBands.Add(band1);
+            musicBands.Add(band2);
+            musicBands.Add(band3);
+            musicBands.Add(band4);
+            musicBands.Add(band5);
+            musicBands.Add(band6);
+
+            Lbox.ItemsSource = musicBands;
+
+            cbxGenre.Items.Add("All");
+            cbxGenre.Items.Add("Pop");
+            cbxGenre.Items.Add("Rock");
+            cbxGenre.Items.Add("Indie");
 
         }
 
-        
-    }
+        public void LbxBands_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Band selectedBand = Lbox.SelectedItem as Band;
+            if (selectedBand != null)
+            {
 
+            }
+        }
+
+        private void CbxGenre_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            filteredMusicBands.Clear();
+
+            string selectedItem = cbxGenre.SelectedItem as string;
+
+            switch (selectedItem)
+            {
+                case "All":
+                    Lbox.ItemsSource = musicBands;
+                    break;
+
+
+                case "Rock":
+                    foreach (Band b in musicBands)
+                    {
+                        if (b.GetType().Name == "Rock")
+                        {
+                            filteredMusicBands.Add(b);
+                        }
+                    }
+                    Lbox.ItemsSource = null;
+                    Lbox.ItemsSource = filteredMusicBands;
+                    break;
+
+                case "Pop":
+                    foreach (Band b in musicBands)
+                    {
+                        if (b.GetType().Name == "Pop")
+                        {
+                            filteredMusicBands.Add(b);
+                        }
+                    }
+                    Lbox.ItemsSource = null;
+                    Lbox.ItemsSource = filteredMusicBands;
+                    break;
+
+                case "Indie":
+                    foreach (Band b in musicBands)
+                    {
+                        if (b.GetType().Name == "Indie")
+                        {
+                            filteredMusicBands.Add(b);
+                        }
+                    }
+                    Lbox.ItemsSource = null;
+                    Lbox.ItemsSource = filteredMusicBands;
+                    break;
+
+
+            }
+        }
+
+
+    }
 }
 
